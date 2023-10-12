@@ -161,7 +161,7 @@
                         text: status[1],
                         icon: 'success',
                         })
-                        setTimeout("location.href='/dashboard'", 3000);
+                        setTimeout("location.href='/panelkaryawan/dashboard'", 3000);
                 } else {
                     if (status[2] == "radius") {
                         notifikasi_radius.play();

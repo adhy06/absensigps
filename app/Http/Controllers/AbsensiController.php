@@ -190,7 +190,10 @@ class AbsensiController extends Controller
     public function izin()
     {
         $nik        = Auth::guard('karyawan')->user()->nik;
-        $dataizin = DB::table('pengajuan_izin')->where('nik',$nik)->get();
+        $dataizin = DB::table('pengajuan_izin')->where('nik',$nik)
+        ->orderBy('tgl_izin', 'desc')
+        ->get();
+
          return view('absensi.izin', compact('dataizin'));   
     }
 

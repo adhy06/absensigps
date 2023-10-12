@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Pelanggan;
+use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -48,7 +50,7 @@ class DashboardController extends Controller
         ->whereRaw('YEAR(tgl_izin)="'.$tahunini.'"')
         ->where('status_approved', 1)
         ->first();
-        return view('dashboard.dashboard', compact('absensihariini','historibulanini', 'namabulan', 'bulanini', 'tahunini', 'rekapabsensi', 'leaderboard', 'rekapizin'));
+        return view('dashboard.dashboardkaryawan', compact('absensihariini','historibulanini', 'namabulan', 'bulanini', 'tahunini', 'rekapabsensi', 'leaderboard', 'rekapizin'));
     }
 
     public function dashboardadmin()
@@ -74,5 +76,41 @@ class DashboardController extends Controller
         return view('dashboard.dashboardadmin', compact('rekapabsensi','rekapizin','rekapkaryawan'));
     }
 
+    public function dashboardpelanggan()
+    {
+        $hariini    = date("Y-m-d");
+        $bulanini = date("m") * 1;
+        $tahunini = date("Y");
+        $nik_ktp = Auth::guard('pelanggan')->user()->nik_ktp;
+        $nama_pendaftar = Auth::guard('pelanggan')->user()->nama_pendaftar;
+        $pembayaranbulanini = DB::table('tagihan')
+        ->where('nik_ktp', $nik_ktp)
+        ->whereRaw('MONTH(tgl_tagihan)="'.$bulanini.'" ')
+        ->whereRaw('YEAR(tgl_tagihan)="'.$tahunini.'"')
+        ->orderBy('tgl_tagihan')
+        ->get();
+
+        $tagihan = DB::table('tagihan')
+        ->join('pelanggan', 'tagihan.nik_ktp', '=', 'pelanggan.nik_ktp')
+        ->join('produk', 'tagihan.kode_produk', '=', 'produk.kode_produk')
+        ->where('tgl_tagihan')
+        ->orderBy('tgl_tagihan')
+        ->get();
+
+        // $query = Pelanggan::query();
+        // $query->select('pelanggan.*','nama_produk');
+        // $query->join('produk','pelanggan.kode_produk','=','produk.kode_produk');
+        // $query->orderBy('nama_produk');
+
+        $produk = DB::table('produk')->get();
+
+        $pelanggan = DB::table('pelanggan')
+        ->join('produk','pelanggan.kode_produk','=','produk.kode_produk')
+        ->where('nik_ktp', $nik_ktp)->first();
+
+        $namabulan = ["","Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember",];
+
+        return view('dashboard.dashboardpelanggan', compact('pelanggan','produk','pembayaranbulanini','tagihan', 'namabulan', 'bulanini', 'tahunini'));
+    }
 
 }

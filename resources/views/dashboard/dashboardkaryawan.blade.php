@@ -10,7 +10,7 @@
             @endphp
             <img src="{{ url($path)}}" alt="avatar" class="imaged w64" style="height: 60px absolut">
             @else
-            <img src="assets/img/sample/avatar/avatar1.jpg" alt="avatar" class="imaged w64 rounded">
+            <img src="{{ asset('/assets/img/sample/avatar/avatar1.jpg') }}" alt="avatar" class="imaged w64 rounded">
             @endif
             
         </div>
@@ -58,12 +58,12 @@
                 </div>
                 <div class="item-menu text-center">
                     <div class="menu-icon">
-                        <a href="" class="orange" style="font-size: 40px;">
-                            <ion-icon name="location"></ion-icon>
+                        <a href="{{ asset('/panelkaryawan/proseslogout')}}" class="orange" style="font-size: 40px;">
+                            <ion-icon name="log-out-outline"></ion-icon>
                         </a>
                     </div>
                     <div class="menu-name">
-                        Lokasi
+                        Keluar
                     </div>
                 </div>
             </div>

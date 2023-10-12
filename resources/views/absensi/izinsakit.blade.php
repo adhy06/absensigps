@@ -247,6 +247,11 @@
         todayHighlight: true,
         format: 'yyyy-mm-dd'
     });
+
+    $("#tgl_izin").change(function(e) {
+        var tgl_izin = $(this).val();
+        alert(tgl_izin);
+    });
     
   });
 </script>

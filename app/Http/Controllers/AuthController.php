@@ -11,26 +11,22 @@ class AuthController extends Controller
 {
     public function proseslogin(Request $request)
     {
-        // $pass = 123;
-        // echo Hash::make($pass);
         if(Auth::guard('karyawan')->attempt(['nik' =>$request->nik, 'password' => $request->password])){
-            return redirect('/dashboard');
+            return redirect('/panelkaryawan/dashboard');
         } else {
-            return redirect('/')->with(['warning' => 'NIK / Password Salah']);
+            return redirect('/panelkaryawan')->with(['warning' => 'NIK / Password Salah']);
         }
     }
 
     public function proseslogout(){
         if(Auth::guard('karyawan')->check()){
             Auth::guard('karyawan')->logout();
-            return redirect('/');
+            return redirect('/panelkaryawan');
         }
     }
 
     public function prosesloginadmin(Request $request)
     {
-        // $pass = 123;
-        // echo Hash::make($pass);
         if(Auth::guard('user')->attempt(['email' =>$request->email, 'password' => $request->password])){
             return redirect('/panel/dashboardadmin');
         } else {
@@ -45,11 +41,20 @@ class AuthController extends Controller
         }
     }
 
+    public function prosesloginpelanggan(Request $request)
+    {
+        if(Auth::guard('pelanggan')->attempt(['nik_ktp' =>$request->nik_ktp, 'password' => $request->password])){
+            return redirect('/panelpelanggan/dashboardpelanggan');
+        } else {
+            return redirect('/panelpelanggan')->with(['warning' => 'NIK / Password Salah']);
+        }
+    }
 
-
-
-
-
-
+    public function proseslogoutpelanggan(){
+        if(Auth::guard('pelanggan')->check()){
+            Auth::guard('pelanggan')->logout();
+            return redirect('/panelpelanggan');
+        }
+    }
 
 }

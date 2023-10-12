@@ -16,7 +16,7 @@
 
 
 <!-- Datepikerday CSS -->
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
+{{-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css"> --}}
 
 <!-- Script Camera -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js"></script>
@@ -27,11 +27,14 @@
 <script src="sweetalert2.all.min.js"></script>
 <!-- Script sweetalert -->
 
+
 <!-- Base Js File -->
 <script src="{{ asset('assets/js/base.js') }}"></script>
 
 <!-- Date Pickerday -->
-<script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script> --}}
+<Script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></Script>
+
 
 <script>
     am4core.ready(function () {
@@ -113,9 +116,9 @@
     }
 }); --}}
 
-<script src="moment.js"></script>
-<script src="pikaday.js"></script>
-<script>
+{{-- <script src="moment.js"></script>
+<script src="pikaday.js"></script> --}}
+{{-- <script>
     var picker = new Pikaday({
     field: document.getElementById('datepicker'), 
     format: 'Y-m-d',
@@ -135,9 +138,9 @@
         const year = parseInt(parts[2], 10);
         return new Date(year, month, day);
     }
-});
+}); --}}
 
-
-</script>
+{{-- 
+</script> --}}
 
 @stack('myscript')
